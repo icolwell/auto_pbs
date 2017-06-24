@@ -1,0 +1,94 @@
+#!/bin/bash
+#PBS -q generic
+#PBS -l nodes=1:ppn=12
+#PBS -j oe
+
+set -e
+INPUT_FILE="$1"
+OUTPUT_FILE="$PBS_O_WORKDIR/output/$PBS_JOBNAME.out"
+CHECKPOINT_FILE="$PBS_O_WORKDIR/chkpoints/$PBS_JOBNAME.chk"
+FORMATTED_FILE="$PBS_O_WORKDIR/fchkpoints/$PBS_JOBNAME.fchk"
+CUBE_FILE="$PBS_O_WORKDIR/cubes/$PBS_JOBNAME.cube"
+
+setup()
+{
+	if [ -z "$INPUT_FILE" ]; then
+		log_echo "ERROR: Argument representing input file path required."
+		exit
+	fi
+
+	if [ ! -e "$INPUT_FILE" ]; then
+		log_echo "ERROR: The provided input file could not be found."
+		exit
+	fi
+
+	log_echo "This job was started with the following working directory:"
+	log_echo "  $PBS_O_WORKDIR"
+
+	# A temporary directory is created to run the calculations in
+	TEMP_DIR=$(mktemp -d)
+	log_echo "Created temp directory on node $PBS_O_HOST to use as local working directory:"
+	log_echo "  $TEMP_DIR"
+
+	if [ -e "$CHECKPOINT_FILE" ]; then
+		log_echo "Checkpoint file found:"
+		log_echo "  $CHECKPOINT_FILE"
+		cp "$CHECKPOINT_FILE" "$TEMP_DIR/checkpoint.chk"
+	fi
+
+	# Input file, add the checkpoint file command after copying
+	cp "$INPUT_FILE" "$TEMP_DIR/"
+	sed -i '1i%Chk=checkpoint.chk' "$TEMP_DIR/$PBS_JOBNAME.inp"
+
+	log_echo "Contents of temp directory after setup:"
+	ls -l "$TEMP_DIR"
+	echo ""
+}
+
+main()
+{
+	# Perform calculations
+	log_echo "Starting calculations using the following input file:"
+	log_echo "  $TEMP_DIR/$PBS_JOBNAME.inp"
+	cd "$TEMP_DIR"
+	export GAUSS_SCRDIR="$TEMP_DIR"
+	module load gaussian
+	g09 < "$TEMP_DIR/$PBS_JOBNAME.inp" > "$TEMP_DIR/$PBS_JOBNAME.out"
+
+	# log_echo "Formatting checkpoint file:"
+	# log_echo "  $FORMATTED_FILE"
+	# formchk "$CHECKPOINT_FILE" "$FORMATTED_FILE"
+
+	# log_echo "Generating cube file:"
+	# log_echo "  $CUBE_FILE"
+	# cubegen 0 MO=HOMO,LUMO "$FORMATTED_FILE" "$CUBE_FILE" 0
+
+	log_echo "Calculations complete!"
+}
+
+teardown()
+{
+	log_echo "Contents of temp directory before teardown:"
+	ls -l "$TEMP_DIR"
+	echo ""
+
+	log_echo "Copying output file to:"
+	log_echo "  $OUTPUT_FILE"
+	cp -p "$TEMP_DIR/$PBS_JOBNAME.out" "$OUTPUT_FILE"
+
+	log_echo "Copying checkpoint file to:"
+	log_echo "  $CHECKPOINT_FILE"
+	cp -p "$TEMP_DIR/checkpoint.chk" "$CHECKPOINT_FILE"
+
+	log_echo "Teardown complete, job done ;)"
+}
+
+log_echo()
+{
+	DATE="$(date +"%Y-%m-%d %T")"
+	echo "[$DATE] $1"
+}
+
+setup
+main
+teardown
