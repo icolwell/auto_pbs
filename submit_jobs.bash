@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SCRIPTS_DIR="$HOME/scripts"
+SCRIPTS_DIR="$HOME/auto_pbs"
 WORKING_DIR="$HOME/computations"
 INPUT_DIR="$WORKING_DIR/input"
 CHKPOINTS_DIR="$WORKING_DIR/chkpoints"
