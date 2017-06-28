@@ -14,7 +14,7 @@ jobs that do calculations using [gaussian](http://gaussian.com/running/).
 
 # Quickstart
 
-Simply place gaussian input (.inp) files in the `~/computations/input/` directory and run the script using the following command.
+Simply place gaussian input (.inp) files in the `~/auto_pbs/input/` directory and run the script using the following command.
 ```
 bash ~/auto_pbs/scripts/submit_jobs.bash
 ```
