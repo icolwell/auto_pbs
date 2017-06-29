@@ -8,7 +8,6 @@ INPUT_FILE="$1"
 OUTPUT_FILE="$PBS_O_WORKDIR/output/$PBS_JOBNAME.out"
 CHECKPOINT_FILE="$PBS_O_WORKDIR/chkpoints/$PBS_JOBNAME.chk"
 FORMATTED_FILE="$PBS_O_WORKDIR/fchkpoints/$PBS_JOBNAME.fchk"
-CUBE_FILE="$PBS_O_WORKDIR/cubes/$PBS_JOBNAME.cube"
 
 setup()
 {
@@ -83,6 +82,20 @@ teardown()
 	log_echo "Teardown complete, job done ;)"
 }
 
+fchk()
+{
+	log_echo "Formatting checkpoint file:"
+	log_echo "  $FORMATTED_FILE"
+	
+	# creates directory for fchk files
+	mkdir -p $PBS_O_WORKDIR/fchkpoints/"
+	formchk "$CHECKPOINT_FILE" "$FORMATTED_FILE"
+	
+	# log_echo "Generating cube file:"
+	# log_echo "  $CUBE_FILE"
+	# cubegen 0 MO=HOMO,LUMO "$FORMATTED_FILE" "$CUBE_FILE" 0
+}
+
 log_echo()
 {
 	DATE="$(date +"%Y-%m-%d %T")"
@@ -92,3 +105,4 @@ log_echo()
 setup
 main
 teardown
+fchk
