@@ -11,7 +11,7 @@ System (PBS) jobs. The script is designed to serve PBS jobs using [gaussian](htt
     git clone https://github.com/icolwell/auto_pbs.git
     ```
 
-# Quickstart
+# Running the Script
 
 Simply place gaussian input (.inp) files in the `~/auto_pbs/input/` directory
 and run the script using the following command. A test input file is included.
