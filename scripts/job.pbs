@@ -54,14 +54,6 @@ main()
 	module load gaussian
 	g09 < "$TEMP_DIR/$PBS_JOBNAME.inp" > "$TEMP_DIR/$PBS_JOBNAME.out"
 
-	# log_echo "Formatting checkpoint file:"
-	# log_echo "  $FORMATTED_FILE"
-	# formchk "$CHECKPOINT_FILE" "$FORMATTED_FILE"
-
-	# log_echo "Generating cube file:"
-	# log_echo "  $CUBE_FILE"
-	# cubegen 0 MO=HOMO,LUMO "$FORMATTED_FILE" "$CUBE_FILE" 0
-
 	log_echo "Calculations complete!"
 }
 
@@ -79,7 +71,7 @@ teardown()
 	log_echo "  $CHECKPOINT_FILE"
 	cp -p "$TEMP_DIR/checkpoint.chk" "$CHECKPOINT_FILE"
 
-	log_echo "Teardown complete, job done ;)"
+	log_echo "Teardown complete"
 }
 
 fchk()
@@ -94,6 +86,8 @@ fchk()
 	# log_echo "Generating cube file:"
 	# log_echo "  $CUBE_FILE"
 	# cubegen 0 MO=HOMO,LUMO "$FORMATTED_FILE" "$CUBE_FILE" 0
+	
+	log_echo "Finished!"
 }
 
 log_echo()
