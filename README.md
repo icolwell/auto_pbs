@@ -1,7 +1,7 @@
 # auto_pbs
 
-The purpose of this repo is to simplify setup and submission of Portable Batch
-System (PBS) jobs. The script is designed to serve PBS jobs using [gaussian](http://gaussian.com/running/).
+This repo simplifies setup and submission of Portable Batch System (PBS) jobs
+that perform electronic structure calculations using [gaussian](http://gaussian.com/running/).
 
 # Installing the Script
 
