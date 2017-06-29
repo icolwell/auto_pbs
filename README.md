@@ -1,8 +1,6 @@
 # auto_pbs
 
-The purpose of this repo is to simplify setup and submission
-of Portable Batch System (PBS) jobs. The script is designed to best serve PBS
-jobs that do calculations using [gaussian](http://gaussian.com/running/).
+The purpose of this repo is to simplify setup and submission of Portable Batch System (PBS) jobs. The script is designed to serve PBS jobs using [gaussian](http://gaussian.com/running/).
 
 # Installing the Script
 
@@ -22,5 +20,4 @@ Output and checkpoint files will be generated in the appropriate directories. A 
 
 ## Note about input files
 
-Do not place `%Chk=` directives at the top of the input file. Checkpoint files are handled
-automatically by the script.
+Do not place `%Chk=` directives at the top of the input file. Checkpoint files are handled automatically by the script.
