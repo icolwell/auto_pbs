@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-SCRIPTS_DIR="$HOME/auto_pbs"
-WORKING_DIR="$HOME/computations"
+SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+WORKING_DIR=$(dirname "$SCRIPTS_DIR")
 INPUT_DIR="$WORKING_DIR/input"
 CHKPOINTS_DIR="$WORKING_DIR/chkpoints"
 OUTPUT_DIR="$WORKING_DIR/output"
