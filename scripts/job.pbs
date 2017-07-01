@@ -8,7 +8,6 @@ INPUT_FILE="$1"
 OUTPUT_FILE="$PBS_O_WORKDIR/output/$PBS_JOBNAME.out"
 CHECKPOINT_FILE="$PBS_O_WORKDIR/chkpoints/$PBS_JOBNAME.chk"
 FORMATTED_FILE="$PBS_O_WORKDIR/fchkpoints/$PBS_JOBNAME.fchk"
-CUBE_FILE="$PBS_O_WORKDIR/cubes/$PBS_JOBNAME.cube"
 
 setup()
 {
@@ -55,14 +54,6 @@ main()
 	module load gaussian
 	g09 < "$TEMP_DIR/$PBS_JOBNAME.inp" > "$TEMP_DIR/$PBS_JOBNAME.out"
 
-	# log_echo "Formatting checkpoint file:"
-	# log_echo "  $FORMATTED_FILE"
-	# formchk "$CHECKPOINT_FILE" "$FORMATTED_FILE"
-
-	# log_echo "Generating cube file:"
-	# log_echo "  $CUBE_FILE"
-	# cubegen 0 MO=HOMO,LUMO "$FORMATTED_FILE" "$CUBE_FILE" 0
-
 	log_echo "Calculations complete!"
 }
 
@@ -80,7 +71,23 @@ teardown()
 	log_echo "  $CHECKPOINT_FILE"
 	cp -p "$TEMP_DIR/checkpoint.chk" "$CHECKPOINT_FILE"
 
-	log_echo "Teardown complete, job done ;)"
+	log_echo "Teardown complete"
+}
+
+fchk()
+{
+	log_echo "Formatting checkpoint file:"
+	log_echo "  $FORMATTED_FILE"
+	
+	# creates directory for fchk files
+	mkdir -p $PBS_O_WORKDIR/fchkpoints/"
+	formchk "$CHECKPOINT_FILE" "$FORMATTED_FILE"
+	
+	# log_echo "Generating cube file:"
+	# log_echo "  $CUBE_FILE"
+	# cubegen 0 MO=HOMO,LUMO "$FORMATTED_FILE" "$CUBE_FILE" 0
+	
+	log_echo "Finished!"
 }
 
 log_echo()
@@ -92,3 +99,4 @@ log_echo()
 setup
 main
 teardown
+fchk
