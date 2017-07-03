@@ -79,13 +79,7 @@ fchk()
 	log_echo "Formatting checkpoint file:"
 	log_echo "  $FORMATTED_FILE"
 	
-	# creates directory for fchk files
-	mkdir -p $PBS_O_WORKDIR/fchkpoints/"
 	formchk "$CHECKPOINT_FILE" "$FORMATTED_FILE"
-	
-	# log_echo "Generating cube file:"
-	# log_echo "  $CUBE_FILE"
-	# cubegen 0 MO=HOMO,LUMO "$FORMATTED_FILE" "$CUBE_FILE" 0
 	
 	log_echo "Finished!"
 }
