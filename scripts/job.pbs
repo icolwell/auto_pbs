@@ -7,8 +7,7 @@ set -e
 INPUT_FILE="$1"
 OUTPUT_FILE="$PBS_O_WORKDIR/output/$PBS_JOBNAME.out"
 CHECKPOINT_FILE="$PBS_O_WORKDIR/chkpoints/$PBS_JOBNAME.chk"
-FORMATTED_FILE="$PBS_O_WORKDIR/fchkpoints/$PBS_JOBNAME.fchk"
-CUBE_FILE="$PBS_O_WORKDIR/cubes/$PBS_JOBNAME.cube"
+FORMATTED_FILE="$PBS_O_WORKDIR/fchk/$PBS_JOBNAME.fchk"
 
 setup()
 {
@@ -55,13 +54,10 @@ main()
 	module load gaussian
 	g09 < "$TEMP_DIR/$PBS_JOBNAME.inp" > "$TEMP_DIR/$PBS_JOBNAME.out"
 
-	# log_echo "Formatting checkpoint file:"
-	# log_echo "  $FORMATTED_FILE"
-	# formchk "$CHECKPOINT_FILE" "$FORMATTED_FILE"
+	log_echo "Generating formatted checkpoint file:"
+	log_echo "  $TEMP_DIR/checkpoint.fchk"
 
-	# log_echo "Generating cube file:"
-	# log_echo "  $CUBE_FILE"
-	# cubegen 0 MO=HOMO,LUMO "$FORMATTED_FILE" "$CUBE_FILE" 0
+	formchk "checkpoint.chk" "checkpoint.fchk"
 
 	log_echo "Calculations complete!"
 }
@@ -80,7 +76,11 @@ teardown()
 	log_echo "  $CHECKPOINT_FILE"
 	cp -p "$TEMP_DIR/checkpoint.chk" "$CHECKPOINT_FILE"
 
-	log_echo "Teardown complete, job done ;)"
+	log_echo "Copying formatted checkpoint file to:"
+	log_echo "  $FORMATTED_FILE"
+	cp -p "$TEMP_DIR/checkpoint.fchk" "$FORMATTED_FILE"
+
+	log_echo "Teardown complete"
 }
 
 log_echo()

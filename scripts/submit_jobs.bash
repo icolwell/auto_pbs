@@ -5,6 +5,7 @@ SCRIPTS_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 WORKING_DIR=$(dirname "$SCRIPTS_DIR")
 INPUT_DIR="$WORKING_DIR/input"
 CHKPOINTS_DIR="$WORKING_DIR/chkpoints"
+FCHK_DIR="$WORKING_DIR/fchk"
 OUTPUT_DIR="$WORKING_DIR/output"
 LOG_DIR="$WORKING_DIR/logs"
 
@@ -16,6 +17,7 @@ fi
 
 # Setup folders if they don't already exist
 mkdir -p "$CHKPOINTS_DIR"
+mkdir -p "$FCHK_DIR"
 mkdir -p "$OUTPUT_DIR"
 mkdir -p "$LOG_DIR"
 
