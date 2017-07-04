@@ -54,6 +54,11 @@ main()
 	module load gaussian
 	g09 < "$TEMP_DIR/$PBS_JOBNAME.inp" > "$TEMP_DIR/$PBS_JOBNAME.out"
 
+	log_echo "Formatting checkpoint file:"
+	log_echo "  $FORMATTED_FILE"
+
+	formchk "checkpoint.chk" "checkpoint.fchk"
+
 	log_echo "Calculations complete!"
 }
 
@@ -71,17 +76,11 @@ teardown()
 	log_echo "  $CHECKPOINT_FILE"
 	cp -p "$TEMP_DIR/checkpoint.chk" "$CHECKPOINT_FILE"
 
-	log_echo "Teardown complete"
-}
-
-fchk()
-{
-	log_echo "Formatting checkpoint file:"
+	log_echo "Copying formatted checkpoint file to:"
 	log_echo "  $FORMATTED_FILE"
-	
-	formchk "$CHECKPOINT_FILE" "$FORMATTED_FILE"
-	
-	log_echo "Finished!"
+	cp -p "$TEMP_DIR/checkpoint.fchk" "$FORMATTED_FILE"
+
+	log_echo "Teardown complete"
 }
 
 log_echo()
@@ -93,4 +92,3 @@ log_echo()
 setup
 main
 teardown
-fchk
