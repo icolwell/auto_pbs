@@ -54,8 +54,8 @@ main()
 	module load gaussian
 	g09 < "$TEMP_DIR/$PBS_JOBNAME.inp" > "$TEMP_DIR/$PBS_JOBNAME.out"
 
-	log_echo "Formatting checkpoint file:"
-	log_echo "  $FORMATTED_FILE"
+	log_echo "Generating formatted checkpoint file:"
+	log_echo "  $TEMP_DIR/checkpoint.fchk"
 
 	formchk "checkpoint.chk" "checkpoint.fchk"
 
