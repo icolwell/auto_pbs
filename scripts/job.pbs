@@ -68,19 +68,29 @@ teardown()
 	ls -l "$TEMP_DIR"
 	echo ""
 
-	log_echo "Copying output file to:"
-	log_echo "  $OUTPUT_FILE"
-	cp -p "$TEMP_DIR/$PBS_JOBNAME.out" "$OUTPUT_FILE"
-
 	log_echo "Copying checkpoint file to:"
 	log_echo "  $CHECKPOINT_FILE"
-	cp -p "$TEMP_DIR/checkpoint.chk" "$CHECKPOINT_FILE"
+	copy_existing "$TEMP_DIR/checkpoint.chk" "$CHECKPOINT_FILE"
+
+	log_echo "Copying output file to:"
+	log_echo "  $OUTPUT_FILE"
+	copy_existing "$TEMP_DIR/$PBS_JOBNAME.out" "$OUTPUT_FILE"
 
 	log_echo "Copying formatted checkpoint file to:"
 	log_echo "  $FORMATTED_FILE"
-	cp -p "$TEMP_DIR/checkpoint.fchk" "$FORMATTED_FILE"
+	copy_existing "$TEMP_DIR/checkpoint.fchk" "$FORMATTED_FILE"
 
 	log_echo "Teardown complete"
+}
+
+copy_existing()
+{
+	if [ -e "$1" ]; then
+		cp -p "$1" "$2"
+	else
+		echo "File not found, will not copy:"
+		echo "	$1"
+	fi
 }
 
 log_echo()
@@ -89,6 +99,6 @@ log_echo()
 	echo "[$DATE] $1"
 }
 
+trap teardown EXIT
 setup
 main
-teardown
