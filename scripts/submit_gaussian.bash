@@ -74,7 +74,7 @@ submit_job()
 	# Try e-mail on finish? (-M)
 
 	# Call the job script with the given arguments
-	qsub -N "$JOB_NAME" -o "$LOG_DIR/$JOB_NAME.log" -d "$WORKING_DIR" -F "$INPUT_FILE" "$SCRIPTS_DIR/job.pbs"
+	qsub -N "$JOB_NAME" -o "$LOG_DIR/$JOB_NAME.log" -d "$WORKING_DIR" -F "$INPUT_FILE" "$SCRIPTS_DIR/gaussian.pbs"
 
 }
 
