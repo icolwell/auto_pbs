@@ -2,7 +2,9 @@
 
 The purpose of this repo is to simplify setup and submission of Portable Batch
 System (PBS) jobs. This script is currently designed to run PBS jobs doing
-[gaussian](http://gaussian.com/running/) calculations.
+[gaussian](http://gaussian.com/running/) calculations. If you are interested in
+how the scripts work, see the [README](scripts/README.md) in the scripts
+section. 
 
 # Installing the Script
 
@@ -24,7 +26,7 @@ everything is working properly. Output, checkpoint and formatted checkpoint
 files will be generated in the output directory. A log showing the steps
 performed by the script will be available in the log directory.
 
-## Note about input files
+### Note about input files
 
 Do not place `%Chk=` directives at the top of the input file. Checkpoint files
 are handled automatically by the script.
