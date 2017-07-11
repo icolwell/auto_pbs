@@ -4,15 +4,15 @@ The purpose of this repo is to simplify setup and submission of Portable Batch
 System (PBS) jobs. This script is currently designed to run PBS jobs doing
 [gaussian](http://gaussian.com/running/) calculations. If you are interested in
 how the scripts work, see the [README](scripts/README.md) in the scripts
-section. 
+section.
 
 # Installing the Script
 
 1. Login to the server used to submit PBS jobs.
 2. Clone this repo using the following command:
-  ```
-  git clone https://github.com/icolwell/auto_pbs.git
-  ```
+```
+git clone https://github.com/icolwell/auto_pbs.git
+```
 
 # Running the Script
 
