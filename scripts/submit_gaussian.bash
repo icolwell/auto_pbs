@@ -43,7 +43,7 @@ check_for_jobs()
 
 	echo ""
 	echo "$num_jobs jobs submitted."
-	echo "Checkpoint, output, and log files will be placed under:"
+	echo "Output, checkpoint and formatted checkpoint files will be placed under:"
 	echo "$OUTPUT_DIR/"
 	echo "Use the following command to check on your job queue:"
 	echo '	qstat -u $USER'
@@ -58,7 +58,7 @@ submit_job()
 
 	# Check if input file exists
 	if [ ! -e "$INPUT_FILE" ]; then
-		echo "The provided input file could not be found."
+		echo "Input file could not be found."
 		echo "	$INPUT_FILE"
 		return 1
 	fi
