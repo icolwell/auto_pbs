@@ -72,7 +72,7 @@ submit_job()
 	echo "Submitting job named $JOB_NAME"
 
 	echo "Which pbs file would you like to use?"
-	read $PBS_FILE
+	read PBS_FILE
 
 	if [ ! e "$PBS_FILE" ]; then
 		echo "The provided pbs file could not be found."
