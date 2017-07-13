@@ -74,7 +74,7 @@ submit_job()
 	echo "Which pbs file would you like to use?"
 	read PBS_FILE
 
-	if [ ! e "$PBS_FILE" ]; then
+	if [ ! -e "$SCRIPTS_DIR/$PBS_FILE" ]; then
 		echo "The provided pbs file could not be found."
 		echo "	$PBS_FILE"
 		return 1
