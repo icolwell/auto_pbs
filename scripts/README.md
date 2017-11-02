@@ -2,9 +2,9 @@
 
 The `submit_gaussian.bash` script will search the input folder for any input
 files that do not have any matching output files. Lonely input files are then
-used as input for a PBS job using the `gaussian.pbs` job script.
+used as input for a SLURM job using the `gaussian.srun` job script.
 
-The `gaussian.pbs` job script has three main sections:
+The `gaussian.srun` job script has three main sections:
 
 __setup__  
 Copy input and checkpoint file (if it exists) to the local temp

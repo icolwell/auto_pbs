@@ -46,7 +46,7 @@ check_for_jobs()
 	echo "Output, checkpoint and formatted checkpoint files will be placed under:"
 	echo "$OUTPUT_DIR/"
 	echo "Use the following command to check on your job queue:"
-	echo '	qstat -u $USER'
+	echo '	squeue -u $USER'
 }
 
 submit_job()
@@ -64,7 +64,7 @@ submit_job()
 	fi
 
 	# Check if job already exists
-	if qstat -u $USER | grep -q -w "$JOB_NAME"; then
+	if squeue -u $USER | grep -n "$JOB_NAME"; then
 		echo "A job named $JOB_NAME is already in the queue."
 		return 1
 	fi
@@ -74,7 +74,7 @@ submit_job()
 	# Try e-mail on finish? (-M)
 
 	# Call the job script with the given arguments
-	qsub -N "$JOB_NAME" -o "$LOG_DIR/$JOB_NAME.log" -d "$WORKING_DIR" -F "$INPUT_FILE" "$SCRIPTS_DIR/gaussian.pbs"
+	sbatch --job-name="$JOB_NAME" --output="$LOG_DIR/$JOB_NAME.log" "$SCRIPTS_DIR/gaussian.srun"
 
 }
 
