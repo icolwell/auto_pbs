@@ -46,7 +46,7 @@ check_for_jobs()
 	echo "Output, checkpoint and formatted checkpoint files will be placed under:"
 	echo "$OUTPUT_DIR/"
 	echo "Use the following command to check on your job queue:"
-	echo '	squeue -u $USER'
+	echo '	squeue -u' $USER
 }
 
 submit_job()
