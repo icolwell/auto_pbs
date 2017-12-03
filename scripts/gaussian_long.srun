@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -p short
+#SBATCH -p long
 #SBATCH -N 1
 #SBATCH -n 12
 
