@@ -29,3 +29,14 @@ performed by the script will be available in the log directory.
 
 Do not place `%Chk=` directives at the top of the input file. Checkpoint files
 are handled automatically by the script.
+
+### Running on different nodes
+
+If your job needs more time, you can run on a different node. The default node is 'short' 
+which has a 24 h time limit. Switching to 'long' changes the time limit to 2 weeks. A full 
+list of nodes can be found [here](https://hpcrcf.atlassian.net/wiki/spaces/TCP/pages/7285967/Partition+List).
+To run on a different node add the name of the node at the end of the submission command. For 
+example to run on a **long** node run the following command:
+```
+bash auto_slurm/scripts/submit_gaussian.bash **long**
+```

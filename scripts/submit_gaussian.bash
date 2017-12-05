@@ -6,6 +6,11 @@ WORKING_DIR=$(dirname "$SCRIPTS_DIR")
 INPUT_DIR="$WORKING_DIR/input"
 OUTPUT_DIR="$WORKING_DIR/output"
 LOG_DIR="$WORKING_DIR/logs"
+PARTITION=$1
+
+if [ -z "$PARTITION" ]; then
+  PARTITION="short"
+fi
 
 if [ ! -d "$INPUT_DIR" ]; then
 	echo "No input file directory found."
@@ -74,7 +79,7 @@ submit_job()
 	# Try e-mail on finish? (-M)
 
 	# Call the job script with the given arguments
-	sbatch --job-name="$JOB_NAME" --output="$LOG_DIR/$JOB_NAME.log" "$SCRIPTS_DIR/gaussian.srun"
+	sbatch --job-name="$JOB_NAME" --output="$LOG_DIR/$JOB_NAME.log" --partition=$PARTITION "$SCRIPTS_DIR/gaussian.srun"
 
 }
 
