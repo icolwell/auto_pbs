@@ -25,11 +25,6 @@ everything is working properly. Output, checkpoint and formatted checkpoint
 files will be generated in the output directory. A log showing the steps
 performed by the script will be available in the log directory.
 
-### Note about input files
-
-Do not place `%Chk=` directives at the top of the input file. Checkpoint files
-are handled automatically by the script.
-
 ### Running on different nodes
 
 If your job needs more time, you can run on a different node. The default node is 'short' 
@@ -40,3 +35,8 @@ example to run on a **long** node run the following command:
 ```
 bash auto_slurm/scripts/submit_gaussian.bash long
 ```
+
+### Note about input files
+
+Do not place `%Chk=` directives at the top of the input file. Checkpoint files
+are handled automatically by the script.
