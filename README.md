@@ -38,5 +38,5 @@ list of nodes can be found [here](https://hpcrcf.atlassian.net/wiki/spaces/TCP/p
 To run on a different node add the name of the node at the end of the submission command. For 
 example to run on a **long** node run the following command:
 ```
-bash auto_slurm/scripts/submit_gaussian.bash **long**
+bash auto_slurm/scripts/submit_gaussian.bash long
 ```
