@@ -6,11 +6,8 @@ WORKING_DIR=$(dirname "$SCRIPTS_DIR")
 INPUT_DIR="$WORKING_DIR/input"
 OUTPUT_DIR="$WORKING_DIR/output"
 LOG_DIR="$WORKING_DIR/logs"
-PARTITION=$1
 
-if [ -z "$PARTITION" ]; then
-  PARTITION="short"
-fi
+PARTITION="${1:="short"}"
 
 if [ ! -d "$INPUT_DIR" ]; then
 	echo "No input file directory found."
