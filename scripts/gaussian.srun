@@ -1,8 +1,6 @@
 #!/bin/bash
-#SBATCH -p short
 #SBATCH -N 1
 #SBATCH -n 12
-#SBATCH --time=0-24:00:00
 
 set -e
 JOB_NAME=${SLURM_JOB_NAME#*/}

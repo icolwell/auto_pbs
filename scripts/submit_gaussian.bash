@@ -7,6 +7,8 @@ INPUT_DIR="$WORKING_DIR/input"
 OUTPUT_DIR="$WORKING_DIR/output"
 LOG_DIR="$WORKING_DIR/logs"
 
+PARTITION="${1:-"short"}"
+
 if [ ! -d "$INPUT_DIR" ]; then
 	echo "No input file directory found."
 	echo "Users must place their input files in the auto_pbs/input/ directory."
@@ -74,7 +76,7 @@ submit_job()
 	# Try e-mail on finish? (-M)
 
 	# Call the job script with the given arguments
-	sbatch --job-name="$JOB_NAME" --output="$LOG_DIR/$JOB_NAME.log" "$SCRIPTS_DIR/gaussian.srun"
+	sbatch --job-name="$JOB_NAME" --output="$LOG_DIR/$JOB_NAME.log" --partition=$PARTITION "$SCRIPTS_DIR/gaussian.srun"
 
 }
 
