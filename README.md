@@ -40,3 +40,6 @@ bash auto_slurm/scripts/submit_gaussian.bash long
 
 Do not place `%Chk=` directives at the top of the input file. Checkpoint files
 are handled automatically by the script.
+
+Limit input filenames to 8 characters. Otherwise, the script will resubmit jobs that are 
+already running.
