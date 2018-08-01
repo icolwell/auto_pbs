@@ -80,6 +80,9 @@ teardown()
 	log_echo "Copying formatted checkpoint file to:"
 	log_echo "  $FORMATTED_FILE"
 	copy_existing "$TEMP_DIR/checkpoint.fchk" "$FORMATTED_FILE"
+	
+	log_echo "Deleting temporary folder and all files within."
+	rm -rf "$TEMP_DIR"
 
 	log_echo "Teardown complete"
 }
