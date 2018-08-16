@@ -7,17 +7,45 @@ INPUT_DIR="$WORKING_DIR/input"
 OUTPUT_DIR="$WORKING_DIR/output"
 LOG_DIR="$WORKING_DIR/logs"
 
-PARTITION="${1:-"short"}"
+main() {
+	if [ ! -d "$INPUT_DIR" ]; then
+		echo "No input file directory found."
+		echo "Users must place their input files in the auto_slurm/input/ directory."
+		exit
+	fi
 
-if [ ! -d "$INPUT_DIR" ]; then
-	echo "No input file directory found."
-	echo "Users must place their input files in the auto_pbs/input/ directory."
-	exit
-fi
+	# Setup folders if they don't already exist
+	mkdir -p "$OUTPUT_DIR"
+	mkdir -p "$LOG_DIR"
 
-# Setup folders if they don't already exist
-mkdir -p "$OUTPUT_DIR"
-mkdir -p "$LOG_DIR"
+	read_args "$@"
+
+	if [ -z "$ARG_NO_UPDATE" ]; then
+		update_repo
+	fi
+	check_for_jobs
+}
+
+read_args()
+{
+	ARG_NO_UPDATE=
+	PARTITION="${1:-"short"}"
+	for arg in "$@"; do
+		case $arg in
+			-n)
+				ARG_NO_UPDATE="true";;
+			*)
+				PARTITION="$arg";;
+		esac
+	done
+}
+
+update_repo() {
+	echo "Updating repo ..."
+	cd "$SCRIPTS_DIR"
+	git checkout -q master
+	git pull
+}
 
 check_for_jobs()
 {
@@ -73,11 +101,8 @@ submit_job()
 
 	echo "Submitting job named $JOB_NAME"
 
-	# Try e-mail on finish? (-M)
-
 	# Call the job script with the given arguments
 	sbatch --job-name="$JOB_NAME" --output="$LOG_DIR/$JOB_NAME.log" --partition=$PARTITION "$SCRIPTS_DIR/gaussian.srun"
-
 }
 
-check_for_jobs
+main "$@"
